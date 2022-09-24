@@ -53,7 +53,7 @@ if __name__ == "__main__":
     optimizer = torch.optim.Adam(model.parameters(), lr=0.0001)
 
     least_val_loss = 1e9
-    total_epochs = 10000
+    total_epochs = 100000
     for epoch in range(1, total_epochs):
         final_cost = None
         for batch_index, samples in enumerate(train_dataloader):
@@ -79,5 +79,5 @@ if __name__ == "__main__":
 
         print(
             "Epoch %4d/%4d Loss: %20.4f val_loss: %20.4f"
-            % (epoch, total_epochs, final_cost.item(), new_val_loss)
+            % (epoch + 1, total_epochs, final_cost.item(), new_val_loss)
         )
