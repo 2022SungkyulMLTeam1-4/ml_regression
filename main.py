@@ -60,7 +60,7 @@ if __name__ == "__main__":
     total_epochs = 1000000
     patience_limit = 5000
     patience_count = 0
-    for epoch in range(1, total_epochs):
+    for epoch in range(1, total_epochs + 1):
         final_cost = None
         for batch_index, samples in enumerate(train_dataloader):
             x_train, y_train = samples
@@ -80,7 +80,7 @@ if __name__ == "__main__":
             new_val_loss = criterion(y_pred, test_dataset[:][1].to(device))
 
             if new_val_loss < least_val_loss:
-                torch.save(model, "best_model.pt")
+                torch.save(model.state_dict(), "best_model.pt")
                 least_val_loss = new_val_loss
                 patience_count = 0
             else:
@@ -91,5 +91,5 @@ if __name__ == "__main__":
 
         print(
             "Epoch %4d/%4d Loss: %20.4f val_loss: %20.4f"
-            % (epoch + 1, total_epochs, final_cost.item(), new_val_loss)
+            % (epoch, total_epochs, final_cost.item(), new_val_loss)
         )
