@@ -57,7 +57,9 @@ if __name__ == "__main__":
     optimizer = torch.optim.Adam(model.parameters(), lr=0.0001)
 
     least_val_loss = 1e9
-    total_epochs = 100000
+    total_epochs = 1000000
+    patience_limit = 5000
+    patience_count = 0
     for epoch in range(1, total_epochs):
         final_cost = None
         for batch_index, samples in enumerate(train_dataloader):
@@ -80,6 +82,12 @@ if __name__ == "__main__":
             if new_val_loss < least_val_loss:
                 torch.save(model, "best_model.pt")
                 least_val_loss = new_val_loss
+                patience_count = 0
+            else:
+                patience_count += 1
+                if patience_count == patience_limit:
+                    print("모델 조기종료")
+                    break
 
         print(
             "Epoch %4d/%4d Loss: %20.4f val_loss: %20.4f"
