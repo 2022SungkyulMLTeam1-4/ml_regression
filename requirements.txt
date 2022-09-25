@@ -1,2 +1,3 @@
 pandas==1.5.0
 torch==1.12.1+cu116
+scikit-learn==1.1.2
