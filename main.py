@@ -57,7 +57,7 @@ if __name__ == "__main__":
 
     model = torch.nn.Linear(16, 1)
     model.to(device)
-    optimizer = torch.optim.Adam(model.parameters(), lr=0.0001, weight_decay=0.0001)
+    optimizer = torch.optim.Adam(model.parameters(), lr=0.0001, weight_decay=0.00001)
 
     least_val_loss = 1e9
     total_epochs = 1000000
