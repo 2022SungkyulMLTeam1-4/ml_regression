@@ -57,13 +57,14 @@ if __name__ == "__main__":
 
     model = torch.nn.Linear(16, 1)
     model.to(device)
-    optimizer = torch.optim.Adam(model.parameters(), lr=0.0001)
+    optimizer = torch.optim.Adam(model.parameters(), lr=0.0001, weight_decay=0.0001)
 
     least_val_loss = 1e9
     total_epochs = 1000000
-    patience_limit = 5000
+    patience_limit = 100
     patience_count = 0
     for epoch in range(1, total_epochs + 1):
+        model.train()
         final_cost = None
         for batch_index, samples in enumerate(train_dataloader):
             x_train, y_train = samples
