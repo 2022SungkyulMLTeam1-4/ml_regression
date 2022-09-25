@@ -1,5 +1,6 @@
 import pandas as pd
 import torch
+from sklearn.preprocessing import StandardScaler
 from torch.utils.data import Dataset
 
 torch.manual_seed(42)
@@ -23,7 +24,10 @@ class LifeExpectationDataset(Dataset):
             ["Country", "Status", "Year", "Population", "GDP"], axis=1
         )
         data.dropna(axis=0, inplace=True)
-        self.x_data = data.drop(["Life expectancy"], axis=1).to_numpy()
+        scaler = StandardScaler()
+        self.x_data = scaler.fit_transform(
+            data.drop(["Life expectancy"], axis=1).to_numpy()
+        )
         self.y_data = data[["Life expectancy"]].to_numpy()
 
     def __len__(self):
