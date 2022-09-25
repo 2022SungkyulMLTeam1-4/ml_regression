@@ -80,7 +80,7 @@ if __name__ == "__main__":
             new_val_loss = criterion(y_pred, test_dataset[:][1].to(device))
 
             if new_val_loss < least_val_loss:
-                torch.save(model.state_dict(), "best_model.pt")
+                torch.save(model, "best_model.pt")
                 least_val_loss = new_val_loss
                 patience_count = 0
             else:

@@ -35,9 +35,7 @@ class LifeExpectationDataset(Dataset):
 
 dataset = LifeExpectationDataset()
 
-model = torch.nn.Linear(16, 1)
-model.to(device)
-model.load_state_dict(torch.load("best_model.pt"))
+model = torch.load("best_model.pt")
 
 with torch.no_grad():
     model.eval()
