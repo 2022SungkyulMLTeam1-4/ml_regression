@@ -47,7 +47,7 @@ if __name__ == "__main__":
         dataset, [train_size, test_size]
     )
     train_dataloader = torch.utils.data.DataLoader(
-        train_dataset, batch_size=train_size, shuffle=True
+        train_dataset, batch_size=64, shuffle=True
     )
 
     criterion = torch.nn.functional.mse_loss
