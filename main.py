@@ -39,18 +39,21 @@ class LifeExpectationDataset(Dataset):
         return x, y
 
 
+def random_split_train_test(dataset, train_ratio=0.8):
+    train_size = int(train_ratio * len(dataset))
+    test_size = len(dataset) - train_size
+    return torch.utils.data.random_split(dataset, [train_size, test_size])
+
+
 if __name__ == "__main__":
     dataset = LifeExpectationDataset()
-    train_size = int(0.8 * len(dataset))
-    test_size = len(dataset) - train_size
-    train_dataset, test_dataset = torch.utils.data.random_split(
-        dataset, [train_size, test_size]
-    )
+    train_dataset, test_dataset = random_split_train_test(dataset, 0.8)
+
     train_dataloader = torch.utils.data.DataLoader(
         train_dataset, batch_size=32, shuffle=True
     )
 
-    criterion = torch.nn.functional.mse_loss
+    criterion = torch.nn.MSELoss()
 
     model = torch.nn.Linear(16, 1)
     model.to(device)
