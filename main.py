@@ -1,4 +1,8 @@
+import pickle
+
 import pandas as pd
+import sklearn
+import sklearn.metrics
 import torch
 from sklearn.preprocessing import StandardScaler
 from torch.utils.data import Dataset
@@ -63,6 +67,10 @@ if __name__ == "__main__":
     total_epochs = 1000000
     patience_limit = 100
     patience_count = 0
+
+    loss_list = []
+    r2_list = []
+
     for epoch in range(1, total_epochs + 1):
         model.train()
         final_cost = None
@@ -93,7 +101,15 @@ if __name__ == "__main__":
                     print("모델 조기종료")
                     break
 
+        r2_score = sklearn.metrics.r2_score(test_dataset[:][1], y_pred.cpu())
+
         print(
-            "Epoch %4d/%4d Loss: %20.4f val_loss: %20.4f"
-            % (epoch, total_epochs, final_cost.item(), new_val_loss)
+            "Epoch %4d/%4d Loss: %20.4f val_loss: %20.4f r2: %5.4f"
+            % (epoch, total_epochs, final_cost.item(), new_val_loss, r2_score)
         )
+
+        loss_list.append(float(new_val_loss))
+        r2_list.append(r2_score)
+
+    with open("loss_and_r2.pickle", "wb") as f:
+        pickle.dump([loss_list, r2_list], f)

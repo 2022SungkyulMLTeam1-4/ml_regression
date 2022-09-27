@@ -54,5 +54,6 @@ if __name__ == "__main__":
         y_true = test_dataset[:][1].to(device)
         val_loss = torch.nn.functional.mse_loss(y_pred, y_true)
         r2_score = sklearn.metrics.r2_score(y_true.cpu(), y_pred.cpu())
-    print(val_loss)
+        print(list(model.parameters()))
+    print(float(val_loss))
     print("결정계수:", r2_score)
