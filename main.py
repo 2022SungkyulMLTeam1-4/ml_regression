@@ -39,10 +39,10 @@ class LifeExpectationDataset(Dataset):
         return x, y
 
 
-def random_split_train_test(dataset, train_ratio=0.8):
-    train_size = int(train_ratio * len(dataset))
-    test_size = len(dataset) - train_size
-    return torch.utils.data.random_split(dataset, [train_size, test_size])
+def random_split_train_test(data, train_ratio=0.8):
+    train_size = int(train_ratio * len(data))
+    test_size = len(data) - train_size
+    return torch.utils.data.random_split(data, [train_size, test_size])
 
 
 if __name__ == "__main__":
